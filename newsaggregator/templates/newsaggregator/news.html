@@ -1,0 +1,56 @@
+{% extends "newsaggregator/base.html" %}
+
+{% block username %}{{ user.username  }}{% endblock %}
+{% block body %}
+
+<h1>News</h1>
+
+<div style="width:600px; margin:0 auto; display:inline;" class="newsreader">
+
+<form class="" style = "float:left;" action="{% url 'fetchNews' %} " method="get">
+  <button type="submit" name="button" value ="business"   class="btn btn-primary">business</button>
+  <button type="submit" name="button" value ="entertainment" class="btn btn-primary">entertainment</button>
+  <button type="submit" name="button" value ="general" class="btn btn-primary">general</button>
+  <button type="submit" name="button" value ="health" class="btn btn-primary">health</button>
+  <button type="submit" name="button" value ="science" class="btn btn-primary">science</button>
+  <button type="submit" name="button" value ="sports" class="btn btn-primary">sports</button>
+  <button type="submit" name="button" value ="technology" class="btn btn-primary">technology</button>
+</form>
+
+<form class="form-inline" style = "float:right;" action="{% url 'fetchSearchedNews' %}" method="get">
+<input type="text" class="form-control" name="query" id="search" placeholder="search">
+&nbsp;&nbsp;
+<button type="submit" class="btn btn-primary mb-2">Submit</button>
+</form>
+
+  <br>
+  <br>
+
+<div style="float:right;" class="favtopics">
+  {% for c in ucat %}
+
+  <form class="" action="{% url 'fetchSearchedNews' %}" method="get">
+  <input type="text" hidden class="form-control" name="query" id="search" value="{{c}}" placeholder="search">
+  <button type="submit" class="btn btn-primary mb-2">{{c}}</button>
+</form>
+
+{% endfor %}
+
+</div>
+
+{% for i in articles %}
+<div class="card" style="width: 40rem;">
+  <img class="card-img-top" src="{{i.urlToImage}}" alt="Card image cap">
+  <div class="card-body">
+    <h5 class="card-title">{{i.title}}</h5>
+    <p class="card-text">{{i.description}}</p>
+    <a href="{{i.url}}" class="btn btn-primary">Read the full news</a>
+    <button type="button" data-title="{{i.title}}" value="{{i.url}}" class="readLater btn btn-primary" name="button">Read Later</button>
+  </div>
+</div>
+<br>
+{% endfor %}
+</div>
+
+
+{% endblock %}

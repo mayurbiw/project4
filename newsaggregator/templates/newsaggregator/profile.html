@@ -1,0 +1,46 @@
+{% extends "newsaggregator/base.html" %}
+
+
+{% block username %}{{ user.username  }}{% endblock %}
+{% block body %}
+
+<h1>Profile</h1>
+{{user}}
+<label for="">{{user.first_name}}</label>
+<label for="">{{user.email}}</label>
+
+<h2>Categories</h2>
+<a href="{% url 'selectCategories' %}">Follow your favorite topics</a>
+
+
+<h2>Saved News</h2>
+{% for s in savedNews  %}
+<a href="{{s.link}}">{{s.title}}</a>
+<br>
+{% endfor %}
+<br>
+<br>
+<h2>Privacy</h2>
+<button type="button" id="changepasswordbutton" class="btn btn-danger">Change password</button>
+<div id="changepasswordfields" hidden>
+  <form class="" action="{% url 'changePassword' %}" method="post">
+    {% csrf_token %}
+    <label for="">Current Password</label>
+    <input type="password" class="form-control" id="oldpassword" name="oldpassword" placeholder="Current Password">
+
+    <label for="">New Password</label>
+    <input type="password" class="form-control" id="newpassword" name="newpassword" placeholder="New Password">
+
+    <label for="">Confirm New Password</label>
+    <input type="password" class="form-control" id="newpassword" name="newpassword" placeholder="New Password">
+
+    <br>
+
+    <button type="submit"  name="savenewpassword" class="btn btn-primary">save</button>
+    <button type="button" id="cancel" class="btn btn-primary" name="button">cancel</button>
+
+</form>
+
+</div>
+
+{% endblock %}

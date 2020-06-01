@@ -1,0 +1,26 @@
+{% extends "newsaggregator/base.html" %}
+
+{% block body %}
+
+<h1>Select Categories</h1>
+<br>
+<br>
+<div style = "margin-left:30%;" class="">
+  {% for c in categories %}
+
+      {%  if c.name in ucat %}
+      <button type="button" data-cat="{{c.name}}" class="category btn btn-warning">{{c.name}}&#10003;</button>
+
+      {% else %}
+      <button type="button" data-cat="{{c.name}}" class="category btn btn-warning">{{c.name}}</button>
+
+      {% endif %}
+
+{% if forloop.counter|divisibleby:4 %}
+  <br>
+  <br>
+  {% endif %}
+
+  {% endfor %}
+  {% endblock %}
+</div>
